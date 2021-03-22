@@ -4,9 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { DynamicInputDirective } from './components/dynamic-input/dynamic-input.directive';
 import { ContainerComponent } from './container.component';
-import { FormInputComponent } from './components/form-input/form-input.component';
+import { FormTextComponent } from './components/form-text/form-text.component';
 import { FormNumberComponent } from './components/form-number/form-number.component';
 import { FormSelectComponent } from './components/form-select/form-select.component';
+import { FormTextAreaComponent } from './components/form-textarea/form-textarea.component';
+import { FormDatetimeComponent } from './components/form-datetime/form-datetime.component';
+
 
 @NgModule({
   imports: [
@@ -16,17 +19,21 @@ import { FormSelectComponent } from './components/form-select/form-select.compon
   declarations: [
     DynamicInputDirective,
     ContainerComponent,
-    FormInputComponent,
+    FormTextComponent,
     FormSelectComponent,
-    FormNumberComponent
+    FormNumberComponent,
+    FormTextAreaComponent,
+    FormDatetimeComponent
   ],
   exports: [
     ContainerComponent
   ],
   entryComponents: [
-    FormInputComponent,
+    FormTextComponent,
     FormSelectComponent,
-    FormNumberComponent
+    FormNumberComponent,
+    FormTextAreaComponent,
+    FormDatetimeComponent
   ]
 })
 export class DynamicFormModule {}

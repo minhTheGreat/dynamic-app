@@ -6,7 +6,7 @@ import { InputAttr } from '../../../models/input-attribute.interface';
 
 @Component({
   selector: 'form-text',
-  styleUrls: ['form-input.component.css'],
+  styleUrls: ['form-text.component.css'],
   template: `
     <div 
       class="dynamic-field form-input" 
@@ -19,7 +19,7 @@ import { InputAttr } from '../../../models/input-attribute.interface';
     </div>
   `
 })
-export class FormInputComponent implements InputModel {
+export class FormTextComponent implements InputModel {
   input: InputAttr;
   group: FormGroup;
 }

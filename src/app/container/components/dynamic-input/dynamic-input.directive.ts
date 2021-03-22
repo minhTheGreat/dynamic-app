@@ -1,17 +1,22 @@
 import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { FormInputComponent } from '../form-input/form-input.component';
+import { FormTextComponent } from '../form-text/form-text.component';
 import { FormSelectComponent } from '../form-select/form-select.component';
 import { FormNumberComponent } from '../form-number/form-number.component';
+import { FormTextAreaComponent } from '../form-textarea/form-textarea.component';
+import { FormDatetimeComponent } from '../form-datetime/form-datetime.component';
+
 
 import { InputModel } from '../../../models/input.interface';
 import { InputAttr } from '../../../models/input-attribute.interface';
 
 const components: {[type: string]: Type<InputModel>} = {
-  text: FormInputComponent,
+  text: FormTextComponent,
   number: FormNumberComponent,
-  select: FormSelectComponent
+  select: FormSelectComponent,
+  textarea :FormTextAreaComponent,
+  datetime : FormDatetimeComponent
 };
 
 @Directive({

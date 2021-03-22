@@ -26,9 +26,10 @@ export class AppComponent {
     },
     {
       type: 'textarea',
+      label: 'Description',
       name: 'desc',
-      rows: 10,
-      cols: 10,
+      rows: 50,
+      cols: 50,
     },
     {
       type: 'select',
