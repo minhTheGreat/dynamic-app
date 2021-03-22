@@ -1,0 +1,5 @@
+<form class="dynamic-form" [formGroup]="form" (submit)="handleSubmit($event)">
+    <ng-container *ngFor="let input of inputs" dynamicInput [input]="input" [group]="form">
+
+    </ng-container>
+</form>
