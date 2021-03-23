@@ -4,7 +4,7 @@ import { InputAttr } from '../models/input-attribute.interface';
 import { IAppState } from '../app.state';
 import { select, Store } from '@ngrx/store';
 import { CreateInput } from '../store/input/input.actions';
-import { getAllInputs, isCreated } from '../store/input/input.reducer';
+import { getAllInputs, isCreated, isDeleted } from '../store/input/input.reducer';
 @Component({
   exportAs: 'appContainer',
   selector: 'app-container',
@@ -20,6 +20,7 @@ export class ContainerComponent implements OnInit {
 
   form: FormGroup;
   defaultInput: InputAttr = {
+    id:null,
     type: 'text',
     label: 'Full name',
     name: 'name',
@@ -32,7 +33,6 @@ export class ContainerComponent implements OnInit {
   get value() { return this.form.value; }
 
   constructor(private fb: FormBuilder, private store: Store<IAppState>) {
-
   }
 
   ngOnInit() {
@@ -95,17 +95,5 @@ export class ContainerComponent implements OnInit {
 
   onCreate() {
     this.store.dispatch(new CreateInput(this.defaultInput));
-    this.store.pipe(select(isCreated)).subscribe(isCreated => {
-      this.inputs.push(this.defaultInput);
-    })
-  }
-
-
-  onUpdate() {
-    
-  }
-
-  onDelete() {
-
   }
 }

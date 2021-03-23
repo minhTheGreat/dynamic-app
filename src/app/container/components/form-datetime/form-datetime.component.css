@@ -1,0 +1,17 @@
+.mat-icon {
+    font-size: 13px;
+    position: relative;
+    top: -2px;
+    left: -12px;
+  }
+  
+  .btn-custom{
+    width: 25px;
+    height: 25px;
+    margin:0 2px;
+  }
+  
+  .dynamic-button{
+    display: flex;
+    justify-content: space-between;
+  }

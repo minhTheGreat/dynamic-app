@@ -1,6 +1,7 @@
 import { ValidatorFn } from '@angular/forms';
 
 export interface InputAttr {
+  id:number | null,
   disabled?: boolean,
   label?: string,
   name: string,
