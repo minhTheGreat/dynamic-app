@@ -1,5 +1,23 @@
-<form class="dynamic-form" [formGroup]="form" (submit)="handleSubmit($event)">
-    <ng-container *ngFor="let input of inputs" dynamicInput [input]="input" [group]="form">
 
-    </ng-container>
-</form>
+<div class="container">
+    <div>
+        <div class="row">
+            <div class="col-sm">
+                <button class="btn btn-success" (click)="onCreate()">Create</button>
+
+                <button class="btn btn-info" (click)="onUpdate()">Update</button>
+
+                <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <form class="dynamic-form" [formGroup]="form" (submit)="handleSubmit($event)">
+            <ng-container *ngFor="let input of inputs" dynamicInput [input]="input" [group]="form">
+            </ng-container>
+            <div class="d-inline-flex p-2">
+                <button type="submit" class="btn btn-submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

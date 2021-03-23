@@ -1,6 +1,10 @@
 import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import {InputAttr} from '../models/input-attribute.interface';
+import { InputAttr } from '../models/input-attribute.interface';
+import { IAppState } from '../app.state';
+import { select, Store } from '@ngrx/store';
+import { CreateInput } from '../store/input/input.actions';
+import { getAllInputs, isCreated } from '../store/input/input.reducer';
 @Component({
   exportAs: 'appContainer',
   selector: 'app-container',
@@ -15,13 +19,19 @@ export class ContainerComponent implements OnInit {
   submit: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
+  defaultInput: InputAttr = {
+    type: 'text',
+    label: 'Full name',
+    name: 'name',
+    placeholder: 'Text here',
+  };
 
-  get controls() { return this.inputs.filter(({type}) => type !== 'button'); }
+  get controls() { return this.inputs.filter(({ type }) => type !== 'button'); }
   get changes() { return this.form.valueChanges; }
   get valid() { return this.form.valid; }
   get value() { return this.form.value; }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store<IAppState>) {
 
   }
 
@@ -30,8 +40,6 @@ export class ContainerComponent implements OnInit {
   }
 
   ngOnChanges() {
-    console.log(this.inputs);
-
     if (this.form) {
       const controls = Object.keys(this.form.controls);
       const inputControls = this.controls.map((item) => item.name);
@@ -46,7 +54,6 @@ export class ContainerComponent implements OnInit {
           const input = this.inputs.find((control) => control.name === name);
           this.form.addControl(name, this.createControl(input));
         });
-
     }
   }
 
@@ -69,7 +76,7 @@ export class ContainerComponent implements OnInit {
 
   setDisabled(name: string, disable: boolean) {
     if (this.form.controls[name]) {
-      const method = disable ? 'disable': 'enable';
+      const method = disable ? 'disable' : 'enable';
       this.form.controls[name][method]();
       return;
     }
@@ -83,6 +90,22 @@ export class ContainerComponent implements OnInit {
   }
 
   setValue(name: string, value: any) {
-    this.form.controls[name].setValue(value, {emitEvent: true});
+    this.form.controls[name].setValue(value, { emitEvent: true });
+  }
+
+  onCreate() {
+    this.store.dispatch(new CreateInput(this.defaultInput));
+    this.store.pipe(select(isCreated)).subscribe(isCreated => {
+      this.inputs.push(this.defaultInput);
+    })
+  }
+
+
+  onUpdate() {
+    
+  }
+
+  onDelete() {
+
   }
 }

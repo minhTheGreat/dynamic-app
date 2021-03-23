@@ -44,7 +44,6 @@ export class DynamicInputDirective implements InputModel, OnChanges, OnInit {
   }
 
   ngOnInit() {
-    console.log(components[this.input.type],components,this.input.type);
     if (!components[this.input.type]) {
       const supportedTypes = Object.keys(components).join(', ');
       throw new Error(
