@@ -11,5 +11,6 @@ export interface InputAttr {
   rows?:number,
   cols?:number,
   validation?: ValidatorFn[],
-  value?: any
+  value?: any,
+  firebaseId: string | null
 }

@@ -1,5 +1,4 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { createFeatureReducerFactory } from '@ngrx/store/src/utils';
 import { InputAttr } from '../../models/input-attribute.interface';
 import { EInputActions, InputActions } from './input.actions';
 import { IInputState } from './input.state';
@@ -9,6 +8,7 @@ export interface State {
   action: string;
   error: null;
 }
+
 const initState: State = {
   inputs: [
     {
@@ -17,6 +17,7 @@ const initState: State = {
       label: 'Full name',
       name: 'name',
       placeholder: 'Text here',
+      firebaseId: null,
     },
     {
       id: 2,
@@ -24,6 +25,7 @@ const initState: State = {
       label: 'Age',
       name: 'age',
       placeholder: 'Text here',
+      firebaseId: null,
     },
     {
       id: 3,
@@ -32,6 +34,7 @@ const initState: State = {
       name: 'desc',
       rows: 50,
       cols: 50,
+      firebaseId: null,
     },
     {
       id: 4,
@@ -40,12 +43,14 @@ const initState: State = {
       name: 'action',
       options: ['Action 1', 'Action 2', 'Action 3'],
       placeholder: 'Select a option',
+      firebaseId: null,
     },
     {
       id: 5,
       type: 'datetime',
       label: 'Date',
       name: 'date',
+      firebaseId: null,
     },
   ],
   action: null,

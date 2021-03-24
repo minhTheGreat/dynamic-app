@@ -8,6 +8,7 @@ import { IAppState } from 'src/app/app.state';
 import { DeleteInput, UpdateInput } from 'src/app/store/input/input.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateDialog } from '../update-dialog/update.dialog';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'form-text',
@@ -54,7 +55,7 @@ export class FormTextComponent implements InputModel {
   input: InputAttr;
   group: FormGroup;
   isShowed: false;
-  constructor(private store: Store<IAppState>, public dialog: MatDialog) {}
+  constructor(private store: Store<IAppState>, public dialog: MatDialog,private firebase: AngularFirestore) {}
 
   onUpdate() {
     const dialogRef = this.dialog.open(UpdateDialog, {
@@ -69,6 +70,14 @@ export class FormTextComponent implements InputModel {
 
   onDelete() {
     this.store.dispatch(new DeleteInput(this.input));
+    console.log(this.input)
+    this.firebase.collection('dynamic-form').doc(this.input.id.toString()).delete()
+    .then(function(){
+      console.log("Document successfully deleted");
+    })
+    .catch(function(error){
+      console.error("Error removing document: ",error);
+    })
   }
 
   onShowButton(event) {

@@ -4,7 +4,8 @@ import { InputAttr } from '../models/input-attribute.interface';
 import { IAppState } from '../app.state';
 import { select, Store } from '@ngrx/store';
 import { CreateInput } from '../store/input/input.actions';
-import { getAllInputs } from '../store/input/input.reducer';
+import { getAllInputs, getLastestInput } from '../store/input/input.reducer';
+import { AngularFirestore } from '@angular/fire/firestore';
 @Component({
   exportAs: 'appContainer',
   selector: 'app-container',
@@ -25,7 +26,8 @@ export class ContainerComponent implements OnInit {
   get valid() { return this.form.valid; }
   get value() { return this.form.value; }
 
-  constructor(private fb: FormBuilder, private store: Store<IAppState>) {
+  constructor(private fb: FormBuilder, private store: Store<IAppState>,private firebase: AngularFirestore) {
+ 
   }
 
   ngOnInit() {
@@ -96,8 +98,12 @@ export class ContainerComponent implements OnInit {
         label: 'Full name',
         name: 'name',
         placeholder: 'Text here',
+        firebaseId:null
       }
     })
     this.store.dispatch(new CreateInput(defaultInput));
+    this.firebase.collection('dynamic-form').add(defaultInput)
   }
+
+  
 }
