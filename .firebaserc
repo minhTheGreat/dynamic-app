@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "streamy-232110": {
+      "hosting": {
+        "dynamic-app": [
+          "streamy-232110"
+        ]
+      }
+    }
+  }
+}
