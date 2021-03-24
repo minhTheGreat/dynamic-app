@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>Update</h1>
+<h1 mat-dialog-title class="d-flex justify-content-center">Update</h1>
 <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="row justify-content-md-center">
   <div mat-dialog-content>
 
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="form-group row">
         <label for="type-attr" class="col-2 col-form-label">
           Type
@@ -22,9 +22,17 @@
           <input class="form-control" formControlName="label" type="text" id="label-attr">
         </div>
       </div>
+      <div class="form-group row">
+        <label for="label-attr" class="col-2 col-form-label">
+          Name
+        </label>
+        <div class="col-10">
+          <input class="form-control" formControlName="name" type="text" id="label-attr">
+        </div>
+      </div>
       <div mat-dialog-actions>
+        <button class="btn btn-success" type="submit" cdkFocusInitial>Ok</button>
         <button class="btn btn-cancel" (click)="onNoClick()">Cancel</button>
-        <button class="btn btn-success" type="submit" [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
       </div>
     </div>
   </div>

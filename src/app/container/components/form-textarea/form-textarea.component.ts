@@ -6,6 +6,8 @@ import { InputAttr } from '../../../models/input-attribute.interface';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/app.state';
 import { DeleteInput, UpdateInput } from 'src/app/store/input/input.actions';
+import { UpdateDialog } from '../update-dialog/update.dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'form-textarea',
@@ -32,10 +34,17 @@ export class FormTextAreaComponent implements InputModel {
   input: InputAttr;
   group: FormGroup;
   isShowed: false;
-  constructor(private store: Store<IAppState>){}
+  constructor(private store: Store<IAppState>,public dialog: MatDialog){}
 
   onUpdate(){
-    this.store.dispatch(new UpdateInput(this.input));
+    const dialogRef = this.dialog.open(UpdateDialog, {
+      width: '30%',
+      data: this.input
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) this.store.dispatch(new UpdateInput(result));
+    });
   }
 
   onDelete(){

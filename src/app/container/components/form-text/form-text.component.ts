@@ -13,48 +13,65 @@ import { UpdateDialog } from '../update-dialog/update.dialog';
   selector: 'form-text',
   styleUrls: ['form-text.component.css'],
   template: `
-    <div 
-      class="dynamic-field form-input" 
-      [formGroup]="group" (mouseenter)="onShowButton(true)" (mouseleave)="onShowButton(false)">
+    <div
+      class="dynamic-field form-input"
+      [formGroup]="group"
+      (mouseenter)="onShowButton(true)"
+      (mouseleave)="onShowButton(false)"
+    >
       <div class="dynamic-button">
         <label>{{ input.label }}</label>
         <div *ngIf="isShowed">
-            <button type="button" class="btn btn-info btn-custom" (click)="onUpdate()">
-            <mat-icon class="mat-icon" aria-hidden="false" aria-label="edit">edit</mat-icon></button>
-            <button type="button" class="btn btn-danger btn-custom" (click)="onDelete()">
-            <mat-icon class="mat-icon" aria-hidden="false" aria-label="delete">delete</mat-icon></button>
+          <button
+            type="button"
+            class="btn btn-info btn-custom"
+            (click)="onUpdate()"
+          >
+            <mat-icon class="mat-icon" aria-hidden="false" aria-label="edit"
+              >edit</mat-icon
+            >
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-custom"
+            (click)="onDelete()"
+          >
+            <mat-icon class="mat-icon" aria-hidden="false" aria-label="delete"
+              >delete</mat-icon
+            >
+          </button>
         </div>
       </div>
       <input
         type="text"
         [attr.placeholder]="input.placeholder"
-        [formControlName]="input.name">
+        [formControlName]="input.name"
+      />
     </div>
-  `
+  `,
 })
 export class FormTextComponent implements InputModel {
   input: InputAttr;
   group: FormGroup;
   isShowed: false;
-  constructor(private store: Store<IAppState>,public dialog: MatDialog){}
+  constructor(private store: Store<IAppState>, public dialog: MatDialog) {}
 
-  onUpdate(){
+  onUpdate() {
     const dialogRef = this.dialog.open(UpdateDialog, {
-      width: '250px',
-      data: this.input
+      width: '30%',
+      data: this.input,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.store.dispatch(new UpdateInput(result));
     });
-    this.store.dispatch(new UpdateInput(this.input));
   }
 
-  onDelete(){
+  onDelete() {
     this.store.dispatch(new DeleteInput(this.input));
   }
 
-  onShowButton(event){
+  onShowButton(event) {
     this.isShowed = event;
   }
 }

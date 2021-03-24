@@ -73,7 +73,7 @@ export function inputReducer(state = initState, action: InputActions): State {
       const index = state.inputs.findIndex(
         (input) => input.id === action.payload.id
       );
-      if (index > 0) {
+      if (index >= 0) {
         const data = [
           ...state.inputs.slice(0, index),
           action.payload,

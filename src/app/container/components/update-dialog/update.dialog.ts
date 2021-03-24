@@ -13,17 +13,20 @@ export class UpdateDialog {
     public dialogRef: MatDialogRef<UpdateDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log(data);
   }
 
   ngOnInit() {
     this.updateForm = new FormGroup({
+      id : new FormControl(this.data.id),
       type: new FormControl(this.data.type, Validators.required),
       label: new FormControl(this.data.label, Validators.required),
+      name: new FormControl(this.data.name,Validators.required)
     });
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.dialogRef.close(this.updateForm.value)
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

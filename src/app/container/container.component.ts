@@ -4,7 +4,7 @@ import { InputAttr } from '../models/input-attribute.interface';
 import { IAppState } from '../app.state';
 import { select, Store } from '@ngrx/store';
 import { CreateInput } from '../store/input/input.actions';
-import { getAllInputs, isCreated, isDeleted } from '../store/input/input.reducer';
+import { getAllInputs } from '../store/input/input.reducer';
 @Component({
   exportAs: 'appContainer',
   selector: 'app-container',
@@ -19,13 +19,6 @@ export class ContainerComponent implements OnInit {
   submit: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
-  defaultInput: InputAttr = {
-    id:null,
-    type: 'text',
-    label: 'Full name',
-    name: 'name',
-    placeholder: 'Text here',
-  };
 
   get controls() { return this.inputs.filter(({ type }) => type !== 'button'); }
   get changes() { return this.form.valueChanges; }
@@ -94,6 +87,17 @@ export class ContainerComponent implements OnInit {
   }
 
   onCreate() {
-    this.store.dispatch(new CreateInput(this.defaultInput));
+    var defaultInput: InputAttr;
+    this.store.pipe(select(getAllInputs)).subscribe(inputs=>{
+      let maxId = inputs[inputs.length-1].id;
+      defaultInput = {
+        id:maxId+1,
+        type: 'text',
+        label: 'Full name',
+        name: 'name',
+        placeholder: 'Text here',
+      }
+    })
+    this.store.dispatch(new CreateInput(defaultInput));
   }
 }
