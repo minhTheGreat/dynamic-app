@@ -7,6 +7,11 @@ import { DynamicFormModule } from './container/container.module';
 import { ActionReducerMap, StoreModule } from '@ngrx/store';
 import { DynamicFormService } from './services/dynamic-form.service';
 import * as fromInput from './store/input/input.reducer';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+
 
 export const reducers: ActionReducerMap<any> = {
   inputs: fromInput.inputReducer,
@@ -20,6 +25,9 @@ export const reducers: ActionReducerMap<any> = {
     AppRoutingModule,
     DynamicFormModule,
     StoreModule.forRoot(reducers),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
   ],
   providers: [
     DynamicFormService

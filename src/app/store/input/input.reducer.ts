@@ -101,6 +101,11 @@ export const isCreated = createSelector(
   getInputsState,
   (state: State) => state.action === EInputActions.CREATE_INPUT && state.done
 );
+
+export const getLastestInput = createSelector(
+  getInputsState,
+  (state: State) => state.inputs[state.inputs.length-1]
+);
 export const isDeleted = createSelector(
   getInputsState,
   (state: State) => state.action === EInputActions.DELETE_INPUT && state.done
