@@ -20,7 +20,14 @@ export class UpdateDialog {
       id : new FormControl(this.data.id),
       type: new FormControl(this.data.type, Validators.required),
       label: new FormControl(this.data.label, Validators.required),
-      name: new FormControl(this.data.name,Validators.required)
+      name: new FormControl(this.data.name,Validators.required),
+      options: new FormControl(this.data.options),
+      placeholder: new FormControl(this.data.placeholder),
+      rows: new FormControl(this.data.rows),
+      cols: new FormControl(this.data.cols),
+      validation: new FormControl(this.data.validation),
+      value: new FormControl(this.data.value),
+      firebaseId: new FormControl(this.data.firebaseId),
     });
   }
 

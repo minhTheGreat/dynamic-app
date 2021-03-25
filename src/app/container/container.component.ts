@@ -6,6 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { CreateInput } from '../store/input/input.actions';
 import { getAllInputs, getLastestInput } from '../store/input/input.reducer';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { DynamicFormService } from '../services/dynamic-form.service';
 @Component({
   exportAs: 'appContainer',
   selector: 'app-container',
@@ -26,7 +27,7 @@ export class ContainerComponent implements OnInit {
   get valid() { return this.form.valid; }
   get value() { return this.form.value; }
 
-  constructor(private fb: FormBuilder, private store: Store<IAppState>,private firebase: AngularFirestore) {
+  constructor(private fb: FormBuilder, private store: Store<IAppState>,private dynamicFormService: DynamicFormService) {
  
   }
 
@@ -101,8 +102,7 @@ export class ContainerComponent implements OnInit {
         firebaseId:null
       }
     })
-    this.store.dispatch(new CreateInput(defaultInput));
-    this.firebase.collection('dynamic-form').add(defaultInput)
+    this.dynamicFormService.onCreate(defaultInput);
   }
 
   

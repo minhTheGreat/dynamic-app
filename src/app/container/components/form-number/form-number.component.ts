@@ -8,6 +8,7 @@ import { IAppState } from 'src/app/app.state';
 import { DeleteInput, UpdateInput } from 'src/app/store/input/input.actions';
 import { UpdateDialog } from '../update-dialog/update.dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { DynamicFormService } from 'src/app/services/dynamic-form.service';
 
 @Component({
   selector: 'form-number',
@@ -54,21 +55,14 @@ export class FormNumberComponent implements InputModel {
   input: InputAttr;
   group: FormGroup;
   isShowed: false;
-  constructor(private store: Store<IAppState>, public dialog: MatDialog) {}
+  constructor(private dynamicFormService: DynamicFormService) { }
 
   onUpdate() {
-    const dialogRef = this.dialog.open(UpdateDialog, {
-      width: '30%',
-      data: this.input,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) this.store.dispatch(new UpdateInput(result));
-    });
+    this.dynamicFormService.onUpdate(this.input);
   }
 
   onDelete() {
-    this.store.dispatch(new DeleteInput(this.input));
+    this.dynamicFormService.onDelete(this.input);
   }
 
   onShowButton(event) {
