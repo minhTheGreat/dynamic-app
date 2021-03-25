@@ -10,7 +10,6 @@ import { CreateInput, DeleteInput, UpdateInput } from '../store/input/input.acti
 @Injectable()
 export class DynamicFormService {
     constructor(private store: Store<IAppState>, public dialog: MatDialog, private firebase: AngularFirestore) {
-        // this.firebase.collection('dynamic-form').add(defaultInput)
     }
 
     public onCreate(input){
